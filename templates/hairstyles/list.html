@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Services - Elegance Hair Studio{% endblock %}
+{% block content %}
+<h2 class="mb-4">Our Services</h2>
+<div class="row g-4">
+    {% for service in services %}
+    <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">{{ service.name }}</h5>
+                <p class="card-text">{{ service.description|default:"Professional service" }}</p>
+                <p class="fw-bold text-warning">R{{ service.price }}</p>
+                <p class="text-muted small">Duration: {{ service.duration_minutes }} minutes</p>
+                <a href="{% url 'bookings:book' %}" class="btn btn-outline-dark btn-sm">Book this service</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>No services available at the moment.</p>
+    {% endfor %}
+</div>
+{% endblock %}

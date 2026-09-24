@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Contact Us{% endblock %}
+{% block content %}
+<h2 class="mb-4">Contact Elegance Hair Studio</h2>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5>Visit Us</h5>
+                <p>123 Nelson Mandela Drive<br>Bloemfontein, Free State<br>South Africa</p>
+                <h5 class="mt-4">Phone</h5>
+                <p>+27 51 123 4567</p>
+                <h5 class="mt-4">Email</h5>
+                <p>info@elegancehairstudio.co.za</p>
+                <h5 class="mt-4">Opening Hours</h5>
+                <p>Monday – Saturday: 09:00 – 17:00<br>Sunday: Closed</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5>Send us a message</h5>
+                <p class="text-muted small">(This is a simple contact section. Connect to email backend if needed.)</p>
+                <form>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="Your Name" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="email" class="form-control" placeholder="Your Email" required>
+                    </div>
+                    <div class="mb-3">
+                        <textarea class="form-control" rows="4" placeholder="Message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-warning">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

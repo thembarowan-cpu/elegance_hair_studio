@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block title %}Book Appointment{% endblock %}
+{% block content %}
+<h2 class="mb-4">Book Your Appointment</h2>
+<form method="post" id="bookingForm">
+    {% csrf_token %}
+    <div class="row g-3">
+        <div class="col-md-6">
+            <label class="form-label">Service *</label>
+            <select name="service" id="service" class="form-select" required>
+                <option value="">Select service...</option>
+                {% for s in services %}
+                    <option value="{{ s.id }}">{{ s.name }} – R{{ s.price }} ({{ s.duration_minutes }} min)</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Preferred Stylist *</label>
+            <select name="stylist" id="stylist" class="form-select" required>
+                <option value="">Select stylist...</option>
+                {% for s in stylists %}
+                    <option value="{{ s.id }}">{{ s.name }} ({{ s.get_role_display }})</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Date *</label>
+            <input type="date" name="date" id="date" class="form-control" required min="{{ today }}">
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Available Time *</label>
+            <select name="time" id="time" class="form-select" required>
+                <option value="">Select date & stylist first</option>
+            </select>
+        </div>
+        <div class="col-12">
+            <label class="form-label">Special Requests</label>
+            <textarea name="special_requests" class="form-control" rows="3" placeholder="Any special requests..."></textarea>
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-warning btn-lg px-5">Confirm Booking</button>
+        </div>
+    </div>
+</form>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const service = document.getElementById('service');
+    const stylist = document.getElementById('stylist');
+    const dateInput = document.getElementById('date');
+    const timeSelect = document.getElementById('time');
+
+    function loadTimes() {
+        if (!service.value || !stylist.value || !dateInput.value) {
+            timeSelect.innerHTML = '<option value="">Select date & stylist first</option>';
+            return;
+        }
+        fetch(`{% url 'bookings:get_times' %}?service=${service.value}&stylist=${stylist.value}&date=${dateInput.value}`)
+            .then(response => response.json())
+            .then(data => {
+                timeSelect.innerHTML = '<option value="">Select time...</option>';
+                if (data.times.length === 0) {
+                    timeSelect.innerHTML = '<option value="">No available times</option>';
+                } else {
+                    data.times.forEach(t => {
+                        const opt = document.createElement('option');
+                        opt.value = t;
+                        opt.textContent = t;
+                        timeSelect.appendChild(opt);
+                    });
+                }
+            });
+    }
+
+    service.addEventListener('change', loadTimes);
+    stylist.addEventListener('change', loadTimes);
+    dateInput.addEventListener('change', loadTimes);
+});
+</script>
+{% endblock %}

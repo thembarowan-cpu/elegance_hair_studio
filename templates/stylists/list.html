@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Our Stylists - Elegance Hair Studio{% endblock %}
+{% block content %}
+<h2 class="mb-4">Meet Our Stylists</h2>
+<div class="row g-4">
+    {% for stylist in stylists %}
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm text-center">
+            <div class="card-body">
+                <h5 class="card-title">{{ stylist.name }}</h5>
+                <p class="text-warning fw-bold">{{ stylist.get_role_display }}</p>
+                <p class="card-text">{{ stylist.bio|default:"Professional stylist at Elegance Hair Studio." }}</p>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>No stylists available.</p>
+    {% endfor %}
+</div>
+{% endblock %}

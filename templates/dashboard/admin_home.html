@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<h2 class="mb-4">Administration Dashboard</h2>
+
+<div class="row g-3 mb-5">
+    <div class="col-md-2"><div class="card text-center shadow-sm"><div class="card-body"><h3>{{ total }}</h3><small>Total Bookings</small></div></div></div>
+    <div class="col-md-2"><div class="card text-center shadow-sm"><div class="card-body"><h3>{{ confirmed }}</h3><small>Confirmed</small></div></div></div>
+    <div class="col-md-2"><div class="card text-center shadow-sm"><div class="card-body"><h3>{{ cancelled }}</h3><small>Cancelled</small></div></div></div>
+    <div class="col-md-2"><div class="card text-center shadow-sm"><div class="card-body"><h3>{{ completed }}</h3><small>Completed</small></div></div></div>
+    <div class="col-md-2"><div class="card text-center shadow-sm"><div class="card-body"><h3>{{ upcoming }}</h3><small>Upcoming</small></div></div></div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <h5>Bookings by Stylist</h5>
+        <ul class="list-group">
+            {% for item in by_stylist %}
+                <li class="list-group-item d-flex justify-content-between">{{ item.stylist__name }} <span class="badge bg-dark">{{ item.count }}</span></li>
+            {% empty %}<li class="list-group-item">No data</li>{% endfor %}
+        </ul>
+    </div>
+    <div class="col-md-6">
+        <h5>Bookings by Service</h5>
+        <ul class="list-group">
+            {% for item in by_service %}
+                <li class="list-group-item d-flex justify-content-between">{{ item.service__name }} <span class="badge bg-dark">{{ item.count }}</span></li>
+            {% empty %}<li class="list-group-item">No data</li>{% endfor %}
+        </ul>
+    </div>
+</div>
+
+<div class="d-flex gap-2 mb-4">
+    <a href="{% url 'dashboard:manage_appointments' %}" class="btn btn-warning">Manage Appointments</a>
+    <a href="/admin/" class="btn btn-outline-dark">Django Admin (Services, Stylists, Customers...)</a>
+</div>
+
+<h5>Recent Appointments</h5>
+<div class="table-responsive">
+    <table class="table table-sm table-striped">
+        <thead><tr><th>Customer</th><th>Service</th><th>Stylist</th><th>Date</th><th>Time</th><th>Status</th></tr></thead>
+        <tbody>
+            {% for a in recent %}
+            <tr>
+                <td>{{ a.customer.get_full_name|default:a.customer.username }}</td>
+                <td>{{ a.service.name }}</td>
+                <td>{{ a.stylist.name }}</td>
+                <td>{{ a.date }}</td>
+                <td>{{ a.start_time }}</td>
+                <td>{{ a.get_status_display }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

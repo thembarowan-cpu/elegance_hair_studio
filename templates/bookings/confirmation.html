@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Booking Confirmed{% endblock %}
+{% block content %}
+<div class="text-center py-5">
+    <h2 class="text-success mb-3">Booking Confirmed!</h2>
+    <p class="lead">Thank you for booking with Elegance Hair Studio.</p>
+    <p>A confirmation has been recorded. You can view your appointment in your dashboard.</p>
+    <a href="{% url 'dashboard:customer' %}" class="btn btn-warning mt-3">Go to My Dashboard</a>
+    <a href="{% url 'home' %}" class="btn btn-outline-dark mt-3 ms-2">Back to Home</a>
+</div>
+{% endblock %}

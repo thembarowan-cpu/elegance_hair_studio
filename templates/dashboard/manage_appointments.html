@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}Manage Appointments{% endblock %}
+{% block content %}
+<h2 class="mb-4">Manage Appointments</h2>
+<a href="{% url 'dashboard:admin' %}" class="btn btn-outline-secondary mb-3">← Back to Dashboard</a>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Customer</th>
+                <th>Service</th>
+                <th>Stylist</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+                <th>Change Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for appt in appointments %}
+            <tr>
+                <td>{{ appt.id }}</td>
+                <td>{{ appt.customer.get_full_name|default:appt.customer.username }}</td>
+                <td>{{ appt.service.name }}</td>
+                <td>{{ appt.stylist.name }}</td>
+                <td>{{ appt.date }}</td>
+                <td>{{ appt.start_time }}</td>
+                <td>{{ appt.get_status_display }}</td>
+                <td>
+                    <form method="post" action="{% url 'dashboard:update_status' appt.pk %}" class="d-flex gap-1">
+                        {% csrf_token %}
+                        <select name="status" class="form-select form-select-sm">
+                            {% for value, label in appt.STATUS_CHOICES %}
+                                <option value="{{ value }}" {% if appt.status == value %}selected{% endif %}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit" class="btn btn-sm btn-warning">Update</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="8" class="text-center">No appointments found.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

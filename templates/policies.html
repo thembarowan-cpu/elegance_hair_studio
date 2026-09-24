@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Salon Policies & FAQ{% endblock %}
+{% block content %}
+<h2 class="mb-4">Salon Policies & Frequently Asked Questions</h2>
+
+<div class="accordion" id="policiesAccordion">
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#booking">Booking Policy</button>
+        </h2>
+        <div id="booking" class="accordion-collapse collapse show" data-bs-parent="#policiesAccordion">
+            <div class="accordion-body">
+                Appointments can be booked online up to 30 days in advance. Please arrive 5–10 minutes early.
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#cancel">Cancellation Policy</button>
+        </h2>
+        <div id="cancel" class="accordion-collapse collapse" data-bs-parent="#policiesAccordion">
+            <div class="accordion-body">
+                Cancellations must be made at least 24 hours before the appointment. Late cancellations may be subject to a fee (configurable by management).
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#late">Late Arrival</button>
+        </h2>
+        <div id="late" class="accordion-collapse collapse" data-bs-parent="#policiesAccordion">
+            <div class="accordion-body">
+                If you arrive more than 15 minutes late, your appointment may need to be rescheduled or shortened.
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#deposit">Deposits</button>
+        </h2>
+        <div id="deposit" class="accordion-collapse collapse" data-bs-parent="#policiesAccordion">
+            <div class="accordion-body">
+                A deposit may be required for certain long services (e.g. full colouring or extensive braiding). This is configurable by the salon administrator.
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

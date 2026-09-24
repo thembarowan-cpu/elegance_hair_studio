@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}My Appointments{% endblock %}
+{% block content %}
+<h2 class="mb-4">My Appointments</h2>
+{% if appointments %}
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Service</th>
+                <th>Stylist</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for appt in appointments %}
+            <tr>
+                <td>{{ appt.date }}</td>
+                <td>{{ appt.start_time }}</td>
+                <td>{{ appt.service.name }}</td>
+                <td>{{ appt.stylist.name }}</td>
+                <td><span class="badge bg-{% if appt.status == 'confirmed' %}success{% elif appt.status == 'cancelled' %}danger{% else %}secondary{% endif %}">{{ appt.get_status_display }}</span></td>
+                <td>
+                    {% if appt.status == 'confirmed' or appt.status == 'pending' %}
+                        <a href="{% url 'bookings:cancel' appt.pk %}" class="btn btn-sm btn-outline-danger"
+                           onclick="return confirm('Are you sure you want to cancel this appointment?')">Cancel</a>
+                    {% else %}
+                        —
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<p>You have no appointments yet. <a href="{% url 'bookings:book' %}">Book one now</a>.</p>
+{% endif %}
+{% endblock %}

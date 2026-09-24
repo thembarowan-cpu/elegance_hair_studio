@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Home - Elegance Hair Studio{% endblock %}
+{% block content %}
+<div class="hero text-center text-white py-5 mb-5">
+    <h1 class="display-3 fw-bold">Elegance Hair Studio</h1>
+    <p class="lead fs-4">Premium hair care in the heart of Bloemfontein</p>
+    <a href="{% url 'bookings:book' %}" class="btn btn-warning btn-lg px-5 mt-3">Book Your Appointment</a>
+</div>
+
+<div class="row g-4 text-center">
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body p-4">
+                <h4 class="card-title">Expert Stylists</h4>
+                <p class="card-text">Senior stylists and colour specialists ready to transform your look.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body p-4">
+                <h4 class="card-title">Easy Online Booking</h4>
+                <p class="card-text">Choose your service, stylist and perfect time – no more phone calls.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body p-4">
+                <h4 class="card-title">Bloemfontein Based</h4>
+                <p class="card-text">Conveniently located and committed to excellence every day.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
